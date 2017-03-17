@@ -1,8 +1,9 @@
-var Cat = function() {
-  this.clickCount = ko.observable(0);
-  this.name = ko.observable('Tabby');
-  this.imgSrc = ko.observable('img/434164568_fea0ad4013_z.jpg');
-  this.imgAttribution = ko.observable('https://www.flickr.com');
+var Cat = function(data) {
+  this.clickCount = ko.observable(data.clickCount);
+  this.name = ko.observable(data.name);
+  this.imgSrc = ko.observable(data.imgSrc);
+  this.imgAttribution = ko.observable(data.imgAttribution);
+  this.nicknames = ko.observableArray(data.nicknames);
 
   this.levelArray = ko.observableArray(['not old enough to know better',
                                         'old enough to know better',
@@ -14,12 +15,6 @@ var Cat = function() {
                                            'old',
                                            'not']);
 
-  this.nicknames = ko.observableArray([
-    { nick:'Scamp' },
-    { nick:'Fluffoid' },
-    { nick:'Purr-Monster' },
-    { nick:'Marvin' }
-  ])
 
   this.level = ko.computed(function() {
     var numLevel = Math.floor(this.clickCount() / 10);
@@ -35,7 +30,18 @@ var Cat = function() {
 var ViewModel = function() {
   // Note: In KO, the only time we need to write ViewModel methods is when we need to actually cahnge something ourselves (KO does the rest).
 
-  this.currentCat = ko.observable( new Cat() );
+  this.currentCat = ko.observable( new Cat({
+    clickCount: 0,
+    name: 'Tabby',
+    imgSrc: 'img/434164568_fea0ad4013_z.jpg',
+    imgAttribution: 'https://www.flickr.com',
+    nicknames: [
+      { nick:'Scamp' },
+      { nick:'Fluffoid' },
+      { nick:'Purr-Monster' },
+      { nick:'Marvin' }
+    ]
+  }) );
 
   this.incrementCounter = function() {
     //Now that clickCount lives in currentCat, we must specify this IN BOTH PLACES!!!

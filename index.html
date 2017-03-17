@@ -10,16 +10,21 @@
     <ul id="cat-list"></ul>
     <div>
         <!-- text: name ==> Text gets set to whatever the name property is on the ViewModel in our js file -->
-        <h2 data-bind="text: name"></h2>
-        <h3 data-bind="text: level"></h3>
-        <div data-bind="text: clickCount"></div>
+        <!-- When our cat MOVES OUT OF THE VIEWMODEL, we have to reference the thing we are calling our current cat inside the viewmodel ==> text: currentCat().name  -->
+        <h2 data-bind="text: currentCat().name"></h2>
+        <h3 data-bind="text: currentCat().level"></h3>
+        <div data-bind="text: currentCat().clickCount"></div>
 
         <!-- We know that when we click, we want incrementCounter to run. We also know we want the source attribute of this image to update as the source changes (in this simple example it won't change, but we still want to use ko's binding system to do this). To put multiple bindings inside a data-bind, use a COMMA. Bind an attribute with the binding ==> attr: {object literal} -->
-        <img  data-bind="click:incrementCounter, attr: {src:imgSrc}" src="" alt="cute cat">
+        <img  data-bind="click:incrementCounter, attr: {src: currentCat().imgSrc}" src="" alt="cute cat">
 
         <h3>Also Known As:</h3>
-        <ul data-bind="foreach: nicknames">
+        <ul data-bind="foreach: currentCat().nicknames">
             <li data-bind="text: nick"></li>
+            <!-- NOTE: For a STRAIGHT ARRAY, instead of an array of OBJECTS, use this:
+            <li data-bind="text: $data"></li>
+             HERE, $data gets us to the actual data in the array we're looping over.
+             Great when data is just a string, number or boolean. -->
         </ul>
 
     </div>

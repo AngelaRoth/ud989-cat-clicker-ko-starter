@@ -1,8 +1,4 @@
-// NOTE: We need to tell ko to apply our bindings to this ViewModel, or it will never get run.
-
-var ViewModel = function() {
-
-  // For simplicity in this example, we'll define our Model stuff inside the ViewModel; the important thing is that the 3 componenets of VMMV are FUNCTIONALLY separate.
+var Cat = function() {
   this.clickCount = ko.observable(0);
   this.name = ko.observable('Tabby');
   this.imgSrc = ko.observable('img/434164568_fea0ad4013_z.jpg');
@@ -33,12 +29,20 @@ var ViewModel = function() {
     return this.levelArray()[numLevel];
   }, this);
 
-  // Note: In KO, the only time we need to write ViewModel methods is when we need to actually cahnge something ourselves (KO does the rest).
-  this.incrementCounter = function() {
-    this.clickCount(this.clickCount() + 1);
-  }
-
 }
 
+
+var ViewModel = function() {
+  // Note: In KO, the only time we need to write ViewModel methods is when we need to actually cahnge something ourselves (KO does the rest).
+
+  this.currentCat = ko.observable( new Cat() );
+
+  this.incrementCounter = function() {
+    //Now that clickCount lives in currentCat, we must specify this IN BOTH PLACES!!!
+    this.currentCat().clickCount(this.currentCat().clickCount() + 1);
+  };
+};
+
 // For Now, let's just start our app like this...
+// NOTE: We need to tell ko to apply our bindings to this ViewModel, or it will never get run.
 ko.applyBindings(new ViewModel());

@@ -1,3 +1,5 @@
+<!-- NOTE: In our MOV model, the octopus was grabbing onto DOM elements by their IDs and then updating them whenever view.render() got called. KO doesn't need the elements to have IDs; it needs us to put data-bindings on them. -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,11 +8,14 @@
 </head>
 <body>
     <ul id="cat-list"></ul>
-    <div id="cat">
+    <div>
+        <!-- text: name ==> Text gets set to whatever the name property is on the ViewModel in our js file -->
+        <h2 data-bind="text: name"></h2>
+        <h3 data-bind="text: level"></h3>
+        <div data-bind="text: clickCount"></div>
 
-        <h2 id="cat-name"></h2>
-        <div id="cat-count"></div>
-        <img id="cat-img" src="" alt="cute cat">
+        <!-- We know that when we click, we want incrementCounter to run. We also know we want the source attribute of this image to update as the source changes (in this simple example it won't change, but we still want to use ko's binding system to do this). To put multiple bindings inside a data-bind, use a COMMA. Bind an attribute with the binding ==> attr: {object literal} -->
+        <img  data-bind="click:incrementCounter, attr: {src:imgSrc}" src="" alt="cute cat">
 
     </div>
     <script src="js/lib/knockout-3.2.0.js"></script>

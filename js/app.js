@@ -39,7 +39,12 @@ var ViewModel = function() {
 
   this.incrementCounter = function() {
     //Now that clickCount lives in currentCat, we must specify this IN BOTH PLACES!!!
-    this.currentCat().clickCount(this.currentCat().clickCount() + 1);
+    // this.currentCat().clickCount(this.currentCat().clickCount() + 1);
+    //UNTIL we apply the "with" binding in our view! Then we no longer need to. BEFORE, when we clicked on the cat, we were clicking on the ViewModel BINDING CONTEXT; we had not yet created a new binding context with the "with" binding, so when we clicked on the image we were effectively within the binding context of the ViewModel. But with the use of "with," when you click on the image, you are WITHIN THE BINDING CONTEXT of currentCat; now, "this" represents the binding context of the current cat.
+    //ALTERNATELY, you could make "var self = this" (as a variable of the ViewModel) and then, inside this function, say ==>
+    // self.currentCat().clickCount(self.currentCat().clickCount() + 1);
+    //==> Now we're not using "this," which represents the binding context when you click on increment counter; we're talking about "self" which represents the ViewModel.
+    this.clickCount(this.clickCount() + 1);
   };
 };
 

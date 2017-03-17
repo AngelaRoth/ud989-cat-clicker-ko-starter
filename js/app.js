@@ -18,6 +18,13 @@ var ViewModel = function() {
                                            'old',
                                            'not']);
 
+  this.nicknames = ko.observableArray([
+    { nick:'Scamp' },
+    { nick:'Fluffoid' },
+    { nick:'Purr-Monster' },
+    { nick:'Marvin' }
+  ])
+
   this.level = ko.computed(function() {
     var numLevel = Math.floor(this.clickCount() / 10);
     if (numLevel >= this.levelArray().length) {

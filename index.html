@@ -17,6 +17,11 @@
         <!-- We know that when we click, we want incrementCounter to run. We also know we want the source attribute of this image to update as the source changes (in this simple example it won't change, but we still want to use ko's binding system to do this). To put multiple bindings inside a data-bind, use a COMMA. Bind an attribute with the binding ==> attr: {object literal} -->
         <img  data-bind="click:incrementCounter, attr: {src:imgSrc}" src="" alt="cute cat">
 
+        <h3>Also Known As:</h3>
+        <ul data-bind="foreach: nicknames">
+            <li data-bind="text: nick"></li>
+        </ul>
+
     </div>
     <script src="js/lib/knockout-3.2.0.js"></script>
     <script src="js/app.js"></script>

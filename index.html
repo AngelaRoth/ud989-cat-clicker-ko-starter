@@ -7,8 +7,13 @@
     <title>Cat Clicker</title>
 </head>
 <body>
-    <ul id="cat-list"></ul>
-    <div data-bind="with:currentCat">
+    <h2>Choose a Cat</h2>
+    <ul data-bind="foreach: catList">
+        <!-- NOTE: If you simply do ==> click: functionName
+        It looks for functionName WITHIN ITS BINDING CONTEXT. And here, because we're going through the items in the cat, the CURRENT BINDING CONTEXT IS THE CAT ITSELF. So we have to get up outside that binding context to the ViewModel. -->
+        <li data-bind="click: $parent.setCurrentCat, text: name"></li>
+    </ul>
+    <div data-bind="with: currentCat">
         <!-- text: name ==> Text gets set to whatever the name property is on the ViewModel in our js file -->
         <!-- When our cat MOVES OUT OF THE VIEWMODEL, we have to reference the thing we are calling our current cat inside the viewmodel ==> text: currentCat().name  -->
         <h2 data-bind="text: name"></h2>
